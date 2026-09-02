@@ -75,12 +75,11 @@ O sistema deverá possibilitar:
 
 # 2. Diagrama Entidade-Relacionamento (DER)
 
-O sistema deverá possuir um **Diagrama Entidade-Relacionamento (DER)** representando a estrutura do banco de dados.
+O Diagrama Entidade-Relacionamento (DER) representa a estrutura do banco de dados do sistema, apresentando suas entidades, atributos, chaves primárias, chaves estrangeiras e relacionamentos.
 
-O DER poderá ser desenvolvido no modelo **conceitual ou lógico** e deverá ser entregue em formato de imagem (`.png` ou `.jpeg`) ou PDF.
+### DER do sistema
 
-O diagrama deverá representar as entidades utilizadas pelo sistema, seus atributos, chaves primárias, chaves estrangeiras e os relacionamentos existentes entre elas.
-
+![Diagrama Entidade-Relacionamento](docs/der.png)
 ---
 
 # 3. Banco de Dados
