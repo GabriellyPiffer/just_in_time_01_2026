@@ -84,17 +84,17 @@ O Diagrama Entidade-Relacionamento (DER) representa a estrutura do banco de dado
 
 # 3. Banco de Dados
 
-O banco de dados do projeto deverá ser nomeado como:
+O banco de dados utilizado no projeto foi desenvolvido com **MariaDB** e possui o nome:
 
-`preparacao_db`
+`mdf`
 
-Todas as tabelas criadas deverão possuir **no mínimo três registros**, respeitando os tipos de dados, chaves primárias e chaves estrangeiras.
+Para realizar a comunicação entre o sistema e o banco de dados, foi utilizado o **Prisma ORM**.
 
-A entrega do banco poderá ser realizada por meio de um arquivo `.sql` ou utilizando o **ORM Prisma**, com:
+O arquivo utilizado é:
 
-- `schema.prisma` para criação e definição das estruturas;
-- `seed.js` para população do banco de dados.
+- `schema.prisma` — responsável pela definição das tabelas, campos e relacionamentos do banco de dados.
 
+Os dados utilizados no sistema foram inseridos diretamente no banco de dados MariaDB.
 ---
 
 # 4. Interface de Autenticação
