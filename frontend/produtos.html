@@ -21,19 +21,16 @@
             <i class="fa-solid fa-box"></i> Produtos
           </a>
         </li>
-
         <li>
           <a href="producao.html">
             <i class="fa-solid fa-industry"></i> Produção
           </a>
         </li>
-
         <li>
           <a href="historico.html">
             <i class="fa-solid fa-clock-rotate-left"></i> Histórico
           </a>
         </li>
-
       </ul>
     </nav>
 
@@ -42,10 +39,15 @@
         <div>
           <h1>Produtos Cadastrados</h1>
           <p>Gerencie os produtos e estoques</p>
+          <p id="usuarioLogado"></p> 
         </div>
-        <button onclick="cadastro.classList.remove('oculto')">
-          <i class="fa-solid fa-plus"></i> Novo Produto
-        </button>
+        <div>
+          <input type="text" id="buscaProduto" placeholder="Buscar produto...">
+          <button onclick="cadastro.classList.remove('oculto')">
+            <i class="fa-solid fa-plus"></i> Novo Produto
+          </button>
+          <button onclick="logout()">Sair</button>
+        </div>
       </div>
 
       <div class="tabela">
@@ -69,7 +71,7 @@
   <div id="cadastro" class="modal oculto">
     <div class="janela">
       <h2>Cadastrar Produto</h2>
-      <form id="formProduto">
+      <form id="formCad"> 
         <label>Nome</label>
         <input type="text" id="nome" required>
         <label>Descrição</label>
@@ -84,6 +86,15 @@
         <button type="button" onclick="cadastro.classList.add('oculto')">Cancelar</button>
         <button type="submit">Salvar</button>
       </form>
+    </div>
+  </div>
+
+  <div id="modalMensagem" class="modal oculto">
+    <div class="janela-confirmar">
+      <i class="fa-solid fa-circle-exclamation icone-alerta"></i>
+      <h2>Alerta</h2>
+      <p id="textoMensagem"></p>
+      <button onclick="modalMensagem.classList.add('oculto')">OK</button>
     </div>
   </div>
 

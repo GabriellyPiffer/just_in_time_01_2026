@@ -1,13 +1,26 @@
 const prisma = require("../data/prisma");
 
 const cadastrar = async (req, res) => {
+  try {
     const data = req.body;
 
-    const item = await prisma.usuario.create({
-        data
+    const existente = await prisma.usuario.findUnique({
+      where: { email: data.email }
     });
 
-    res.json(item).status(201).end();
+    if (existente) {
+      return res.status(400).json({ erro: "E-mail já cadastrado" });
+    }
+
+    const item = await prisma.usuario.create({
+      data
+    });
+
+    res.json(item);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ erro: "Erro ao cadastrar usuário" });
+  }
 };
 
 const listar = async (req, res) => {

@@ -46,13 +46,18 @@
         <div>
           <h1>Produtos Cadastrados</h1>
           <p>Gerencie os produtos e estoques</p>
+          <p id="usuarioLogado"></p> 
         </div>
 
-        <button onclick="cadastro.classList.remove('oculto')">
-          <i class="fa-solid fa-plus"></i>
-          Novo Produto
-        </button>
+        <div>
+          <input type="text" id="buscaProduto" placeholder="Buscar produto...">
+          <button onclick="cadastro.classList.remove('oculto')">
+            <i class="fa-solid fa-plus"></i> Novo Produto
+          </button>
+          <button onclick="logout()">Sair</button>
+        </div>
       </div>
+
 
       <div class="tabela">
         <table>

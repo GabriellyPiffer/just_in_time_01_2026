@@ -1,41 +1,45 @@
-const form = document.getElementById("formUsuario");
+const apiUrl = "http://localhost:3000";
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+const formUsuario = document.getElementById("formUsuario");
 
-  const nome = document.getElementById("nomeUsuario").value.trim();
-  const email = document.getElementById("emailUsuario").value.trim();
-  const senha = document.getElementById("senhaUsuario").value.trim();
+if (formUsuario) {
+  formUsuario.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const nome = document.getElementById("nomeUsuario").value.trim();
+    const email = document.getElementById("emailUsuario").value.trim();
+    const senha = document.getElementById("senhaUsuario").value.trim();
 
-  if (!emailRegex.test(email)) {
-    alert("E-mail inválido.");
-    return;
-  }
-
-  const usuario = { nome, email, senha };
-
-  try {
-    const resposta = await fetch("http://localhost:3000/usuario/cadastrar", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(usuario)
-    });
-
-    if (resposta.ok) {
-      alert("Cadastro realizado com sucesso!");
-      window.location.href = "login.html";
-    } else {
-      const erro = await resposta.json();
-      if (erro.erro === "E-mail já cadastrado") {
-        alert("Este e-mail já está em uso. Tente outro.");
-      } else {
-        alert("Erro ao cadastrar: " + (erro.erro || "Verifique os dados."));
-      }
+    // validação simples de e-mail
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("E-mail inválido.");
+      return;
     }
-  } catch (err) {
-    alert("Falha na comunicação com o servidor.");
-    console.error(err);
-  }
-});
+
+    const usuario = { nome, email, senha };
+
+    try {
+      const resposta = await fetch(`${apiUrl}/usuario/cadastrar`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(usuario)
+      });
+
+      if (resposta.ok) {
+        alert("Cadastro realizado com sucesso!");
+        window.location.href = "login.html";
+      } else {
+        const erro = await resposta.json();
+        if (erro.erro === "E-mail já cadastrado") {
+          alert("Este e-mail já está em uso. Tente outro.");
+        } else {
+          alert("Erro ao cadastrar: " + (erro.erro || "Verifique os dados."));
+        }
+      }
+    } catch (err) {
+      alert("Falha na comunicação com o servidor.");
+      console.error(err);
+    }
+  });
+}

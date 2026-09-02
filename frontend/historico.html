@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>Histórico de Ações</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 </head>
 
 <body>
@@ -32,14 +33,19 @@
             <i class="fa-solid fa-clock-rotate-left"></i> Histórico
           </a>
         </li>
-
       </ul>
     </nav>
 
     <main>
       <div class="topo">
-        <h1>Histórico de Ações</h1>
-        <p>Veja o que cada usuário já fez</p>
+        <div>
+          <h1>Histórico de Ações</h1>
+          <p>Veja o que cada usuário já fez</p>
+          <p id="usuarioLogado"></p> 
+        </div>
+        <div>
+          <button onclick="logout()">Sair</button>
+        </div>
       </div>
 
       <div class="tabela">
