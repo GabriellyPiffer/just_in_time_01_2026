@@ -1,5 +1,4 @@
 
-```markdown
 # Avaliação – Sistema de Gestão de Produção e Estoque
 
 ## 📌 Sobre a atividade
@@ -79,7 +78,7 @@ O Diagrama Entidade-Relacionamento (DER) representa a estrutura do banco de dado
 
 ### DER do sistema
 
-![Diagrama Entidade-Relacionamento](docs/der.png)
+![Diagrama Entidade-Relacionamento](docs/Mdf.drawio.png)
 ---
 
 # 3. Banco de Dados
@@ -217,15 +216,6 @@ Os campos de e-mail e senha devem estar visíveis e disponíveis para preenchime
 
 - Insomnia;
 - Google Chrome;
-- Mozilla Firefox;
-- Outros navegadores compatíveis.
-
-**Testes automatizados:**
-
-- Selenium;
-- Cypress;
-- Outras ferramentas de automação.
-
 ---
 
 # 9. Requisitos de Infraestrutura
@@ -236,22 +226,19 @@ A documentação deverá apresentar as tecnologias utilizadas durante o desenvol
 
 Informar:
 
-- Nome do SGBD;
-- Versão utilizada.
+- MariaDB 10.6 (utilizado em conjunto com Prisma ORM para gerenciamento do banco de dados) 
 
 ### 9.2 Linguagem de programação
 
 Informar:
 
-- Linguagem utilizada;
-- Versão utilizada.
+- Node.js (JavaScript) versão 18.x 
 
 ### 9.3 Sistema operacional
 
 Informar:
 
-- Sistema operacional utilizado;
-- Versão utilizada.
+- Windows 10 Pro – versão 22H2 
 
 ---
 
@@ -307,4 +294,4 @@ A avaliação tem como objetivo verificar a capacidade técnica de **planejar, d
 O projeto contempla as principais etapas do desenvolvimento de um sistema:
 
 **Análise de requisitos → Modelagem → Desenvolvimento → Testes → Documentação**
-```
+
