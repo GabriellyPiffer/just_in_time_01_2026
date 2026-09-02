@@ -1,0 +1,150 @@
+:root {
+  --cor-fundo: #f4f4f4;
+  --cor-primaria: #007bff;
+  --cor-primaria-hover: #0056b3;
+  --cor-nav: #333;
+  --cor-texto-nav: #fff;
+  --cor-borda: #ccc;
+  --fonte-padrao: Arial, sans-serif;
+}
+
+body {
+  font-family: var(--fonte-padrao);
+  margin: 0;
+  background: var(--cor-fundo);
+  color: #333;
+}
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+
+.card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 350px;
+  text-align: center;
+}
+
+.card .logo {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
+.card p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card label {
+  text-align: left;
+  font-weight: bold;
+}
+
+.card input {
+  padding: 8px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 4px;
+}
+
+.card button {
+  background: var(--cor-primaria);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.card button:hover {
+  background: var(--cor-primaria-hover);
+}
+
+.card span {
+  display: block;
+  margin-top: 15px;
+}
+
+/* LOGIN */
+.login-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 350px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-container label {
+  text-align: left;
+  font-weight: bold;
+}
+
+.login-container input {
+  padding: 8px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 4px;
+}
+
+.login-container button {
+  background: var(--cor-primaria);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.login-container button:hover {
+  background: var(--cor-primaria-hover);
+}
+
+.acoes-login {
+  margin-top: 20px;
+}
+
+.acoes-login p {
+  margin: 0 0 10px;
+}
+
+.erro {
+  color: red;
+  margin-top: 10px;
+}
+
+.oculto {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .card, .login-container {
+    width: 90%;
+    padding: 20px;
+  }
+}

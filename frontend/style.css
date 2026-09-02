@@ -1,0 +1,144 @@
+:root {
+  --cor-fundo: #f4f4f4;
+  --cor-primaria: #007bff;
+  --cor-primaria-hover: #0056b3;
+  --cor-nav: #333;
+  --cor-texto-nav: #fff;
+  --cor-borda: #ccc;
+  --fonte-padrao: Arial, sans-serif;
+}
+
+body {
+  font-family: var(--fonte-padrao);
+  margin: 0;
+  background: var(--cor-fundo);
+  color: #333;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+
+nav {
+  width: 220px;
+  background: var(--cor-nav);
+  color: var(--cor-texto-nav);
+  padding: 20px;
+}
+
+nav .logo-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  margin: 15px 0;
+}
+
+nav ul li a {
+  color: var(--cor-texto-nav);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: var(--cor-primaria);
+}
+
+
+main {
+  flex: 1;
+  padding: 20px;
+  background: #fff;
+}
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.tabela table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.tabela th, .tabela td {
+  border: 1px solid var(--cor-borda);
+  padding: 10px;
+  text-align: left;
+}
+
+.tabela th {
+  background: #eee;
+}
+
+
+button {
+  background: var(--cor-primaria);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: var(--cor-primaria-hover);
+}
+
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.oculto {
+  display: none;
+}
+
+.janela {
+  background: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  max-width: 500px;
+  width: 100%;
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  nav {
+    width: 100%;
+    min-height: auto;
+  }
+
+  main {
+    padding: 15px;
+  }
+
+  .tabela table {
+    font-size: 14px;
+  }
+}
