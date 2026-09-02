@@ -32,50 +32,45 @@ O sistema deverá possibilitar:
 
 # 1. Lista de Requisitos Funcionais
 
-Os requisitos funcionais descrevem as funcionalidades que o sistema deverá oferecer aos usuários.
-
-### [RF01] Interface de autenticação
-
+## [RF01] Interface de Autenticação
 - **[RF01.1]** Solicitar e-mail e senha do usuário.
-- **[RF01.2]** Validar as credenciais informadas.
-- **[RF01.3]** Informar o motivo da falha em caso de autenticação inválida.
-- **[RF01.4]** Redirecionar o usuário autenticado para a interface principal.
+- **[RF01.2]** Validar credenciais do usuário no banco de dados.
+- **[RF01.3]** Redirecionar para a interface principal em caso de sucesso.
+- **[RF01.4]** Informar o motivo da falha em caso de erro de autenticação.
 
-### [RF02] Interface principal do sistema
+---
 
-- **[RF02.1]** Exibir o nome do usuário logado.
-- **[RF02.2]** Disponibilizar uma opção para realizar logout.
-- **[RF02.3]** Redirecionar o usuário para a tela de login após o logout.
-- **[RF02.4]** Disponibilizar acesso ao cadastro de produtos.
-- **[RF02.5]** Disponibilizar acesso à gestão de produção.
+## [RF02] Interface Principal do Sistema
+- **[RF02.1]** Exibir nome do usuário logado.
+- **[RF02.2]** Disponibilizar opção de logout, redirecionando para login.
+- **[RF02.3]** Acessar interface de cadastro de produto.
+- **[RF02.4]** Acessar interface de gestão de produção (*Just in Time*).
 
-### [RF03] Cadastro e gerenciamento de produtos
+---
 
-- **[RF03.1]** Listar os produtos cadastrados no banco de dados.
-- **[RF03.2]** Exibir os produtos em formato de tabela.
-- **[RF03.3]** Carregar automaticamente os produtos ao acessar a interface.
-- **[RF03.4]** Permitir a busca de produtos.
-- **[RF03.5]** Atualizar a tabela conforme o termo pesquisado.
-- **[RF03.6]** Permitir o cadastro de novos produtos.
-- **[RF03.7]** Permitir a edição de produtos existentes.
-- **[RF03.8]** Permitir a exclusão de produtos.
-- **[RF03.9]** Validar os dados informados no cadastro e na edição.
-- **[RF03.10]** Exibir alertas para dados ausentes ou inválidos.
-- **[RF03.11]** Permitir retornar à interface principal.
+## [RF03] Cadastro de Produto
+- **[RF03.1]** Listar produtos cadastrados em tabela ao carregar a interface.
+- **[RF03.2]** Implementar campo de busca com atualização dinâmica da listagem.
+- **[RF03.3]** Inserir novo produto no banco de dados.
+- **[RF03.4]** Editar produto existente no banco de dados.
+- **[RF03.5]** Excluir produto existente no banco de dados.
+- **[RF03.6]** Validar dados inseridos (criação/edição) e exibir alertas em caso de erro.
+- **[RF03.7]** Retornar para a interface principal.
 
-### [RF04] Gestão de produção e estoque
+---
 
-- **[RF04.1]** Listar os produtos cadastrados em ordem alfabética.
-- **[RF04.2]** Permitir a seleção do produto que terá seu estoque alterado.
-- **[RF04.3]** Permitir selecionar o tipo de movimentação como "Fabricado" ou "Pedido".
-- **[RF04.4]** Permitir informar a quantidade da movimentação.
-- **[RF04.5]** Aumentar o estoque quando o tipo de movimentação for "Fabricado".
-- **[RF04.6]** Diminuir o estoque quando o tipo de movimentação for "Pedido".
-- **[RF04.7]** Registrar a movimentação realizada.
-- **[RF04.8]** Registrar o usuário responsável pela movimentação.
-- **[RF04.9]** Verificar automaticamente o estoque mínimo após cada movimentação.
-- **[RF04.10]** Exibir um alerta quando o estoque estiver abaixo do mínimo.
+## [RF04] Gestão de Produção (Just in Time)
+- **[RF04.1]** Listar produtos cadastrados em ordem alfabética.
+- **[RF04.2]** Selecionar produto para movimentação de estoque (pedido ou fabricado).
+- **[RF04.3]** Inserir dados da movimentação (entrada ou saída).
+- **[RF04.4]** Atualizar automaticamente a quantidade em estoque.
+- **[RF04.5]** Emitir alerta em caso de estoque abaixo do mínimo configurado.
 
+---
+
+## [RF05] Registro de Ações do Usuário
+- **[RF05.1]** Registrar qual usuário realizou cada ação (cadastro, edição, exclusão, movimentação de estoque).
+- **[RF05.2]** Permitir consulta ao histórico de ações realizadas.
 ---
 
 # 2. Diagrama Entidade-Relacionamento (DER)
