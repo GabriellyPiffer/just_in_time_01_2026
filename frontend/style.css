@@ -142,3 +142,45 @@ button:hover {
     font-size: 14px;
   }
 }
+
+.janela-confirmar {
+  background: #fff;
+  color: #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  animation: aparecer 0.3s ease-out;
+}
+
+.janela-confirmar h2 {
+  color: #b00020;
+  margin-bottom: 10px;
+}
+
+.janela-confirmar p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.janela-confirmar button {
+  background: var(--cor-primaria);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background 0.3s;
+}
+
+.janela-confirmar button:hover {
+  background: var(--cor-primaria-hover);
+}
+
+@keyframes aparecer {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

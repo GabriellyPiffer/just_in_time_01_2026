@@ -17,38 +17,53 @@ const listar = async (req, res) => {
 };
 
 const buscar = async (req, res) => {
-    const { id } = req.params;
-    
+  const { id } = req.params;
+  
+  try {
     const item = await prisma.produto.findUnique({
-        where: { id : Number(id) }
+      where: { id_produto: Number(id) }   
     });
 
-    res.json(item).status(200).end();
+    if (!item) {
+      return res.status(404).json({ erro: "Produto não encontrado" });
+    }
+
+    res.status(200).json(item).end();
+  } catch (err) {
+    res.status(500).json({ erro: "Erro ao buscar produto", detalhe: err.message });
+  }
 };
 
 const atualizar = async (req, res) => {
-    const { id } = req.params;
-    const dados = req.body;
-    
+  const { id } = req.params;
+  const dados = req.body;
+
+  try {
     const item = await prisma.produto.update({
-        where: { id : Number(id) },
-        data: dados
+      where: { id_produto: Number(id) },  
+      data: dados
     });
 
-    res.json(item).status(200).end();
+    res.status(200).json(item).end();
+  } catch (err) {
+    res.status(500).json({ erro: "Erro ao atualizar produto", detalhe: err.message });
+  }
 };
 
 const excluir = async (req, res) => {
   const { id } = req.params;
+
   try {
     const item = await prisma.produto.delete({
-      where: { id_produto: Number(id) } 
+      where: { id_produto: Number(id) }  
     });
-    res.status(200).json(item);
+
+    res.status(200).json(item).end();
   } catch (err) {
     res.status(500).json({ erro: "Erro ao excluir produto", detalhe: err.message });
   }
 };
+
 
 module.exports = {
     cadastrar,

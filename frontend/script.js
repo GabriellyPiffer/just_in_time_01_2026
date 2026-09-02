@@ -1,12 +1,11 @@
 const apiUrl = "http://localhost:3000";
 
 const listaProdutos = document.getElementById("listaProdutos");
-const formProduto = document.getElementById("formCad"); // ajustado para o id correto do form
+const formProduto = document.getElementById("formCad"); 
 const cadastro = document.getElementById("cadastro");
 const buscaProduto = document.getElementById("buscaProduto");
 const usuarioLogado = document.getElementById("usuarioLogado");
 
-// ---------------------- PRODUTOS ----------------------
 async function carregarProdutos() {
   if (!listaProdutos) return;
   const res = await fetch(`${apiUrl}/produto/listar`);   
@@ -20,7 +19,6 @@ async function carregarProdutos() {
       modalMensagem.classList.remove("oculto");
     }
 
-    // garante que custo seja número e evita erro
     const custoFormatado = p.custo !== undefined && p.custo !== null 
       ? Number(p.custo).toFixed(2) 
       : "0.00";
@@ -108,13 +106,15 @@ if (buscaProduto) {
     const res = await fetch(`${apiUrl}/produto/listar`);
     const produtos = await res.json();
 
-    const filtrados = produtos.filter(p => p.nome.toLowerCase().includes(termo));
+    const filtrados = produtos.filter(p => 
+      (p.nome || "").toLowerCase().includes(termo)
+    );
 
     listaProdutos.innerHTML = filtrados.map(p => `
       <tr>
         <td>${p.nome}</td>
         <td>${p.descricao || ""}</td>
-        <td>R$ ${p.custo.toFixed(2)}</td>
+        <td>R$ ${(p.custo !== undefined && p.custo !== null ? Number(p.custo).toFixed(2) : "0.00")}</td>
         <td>${p.quantidade_estoque}</td>
         <td>${p.estoque_minimo}</td>
         <td>
@@ -127,12 +127,12 @@ if (buscaProduto) {
 }
 
 
+
 function logout() {
   localStorage.removeItem("usuario");
   window.location.href = "login.html";
 }
 
-// ---------------------- PRODUÇÃO ----------------------
 const formProducao = document.getElementById("formProducao");
 const listaProducao = document.getElementById("listaProducao");
 const produtoSelect = document.getElementById("produtoSelect");
@@ -154,7 +154,6 @@ async function carregarProducao() {
   `).join("");
 }
 
-// busca por produção
 if (buscaProducao) {
   buscaProducao.addEventListener("input", async () => {
     const termo = buscaProducao.value.toLowerCase();
@@ -208,7 +207,6 @@ if (formProducao) {
       carregarProducao();
       carregarProdutosSelect();
 
-      // alerta de estoque baixo também na produção
       if (resultado.produto && resultado.produto.quantidade_estoque < resultado.produto.estoque_minimo) {
         document.getElementById("textoMensagem").textContent =
           `O produto ${resultado.produto.nome} está abaixo do estoque mínimo!`;
@@ -221,7 +219,6 @@ if (formProducao) {
   });
 }
 
-// ---------------------- LOGIN ----------------------
 const formLogin = document.getElementById("formLogin");
 const mensagemErro = document.getElementById("mensagemErro");
 
@@ -249,7 +246,6 @@ if (formLogin) {
   });
 }
 
-// ---------------------- HISTÓRICO ----------------------
 const listaHistorico = document.getElementById("listaHistorico");
 
 async function carregarHistorico() {
@@ -268,7 +264,6 @@ async function carregarHistorico() {
   `).join("");
 }
 
-// ---------------------- INICIALIZAÇÃO ----------------------
 window.onload = () => {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   if (usuario && usuarioLogado) {

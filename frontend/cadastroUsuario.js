@@ -10,7 +10,6 @@ if (formUsuario) {
     const email = document.getElementById("emailUsuario").value.trim();
     const senha = document.getElementById("senhaUsuario").value.trim();
 
-    // validação simples de e-mail
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       alert("E-mail inválido.");
