@@ -1,7 +1,7 @@
 
 # Avaliação – Sistema de Gestão de Produção e Estoque
 
-## 📌 Sobre a atividade
+##  Sobre a atividade
 
 Esta atividade tem como objetivo desenvolver um **sistema Web Full Stack** para gerenciar a produção e o estoque de produtos fabricados em MDF.
 
@@ -11,7 +11,7 @@ Além do desenvolvimento do sistema, a atividade contempla as etapas de **análi
 
 ---
 
-## 🎯 Objetivo
+##  Objetivo
 
 Desenvolver um sistema informatizado capaz de auxiliar um fabricante de produtos em MDF no controle de sua produção e estoque.
 
@@ -242,7 +242,7 @@ Informar:
 
 ---
 
-# 📋 Contextualização
+#  Contextualização
 
 Um fabricante local de produtos em MDF enfrenta dificuldades para controlar sua produção devido à ausência de um sistema informatizado.
 
@@ -254,7 +254,7 @@ O sistema permitirá centralizar as informações de produtos, pedidos, produç�
 
 ---
 
-# ✅ Entregas
+#  Entregas
 
 Ao final da atividade, deverão ser entregues:
 
@@ -271,7 +271,7 @@ Ao final da atividade, deverão ser entregues:
 
 ---
 
-# 💻 Tecnologias
+#  Tecnologias
 
 As tecnologias utilizadas no desenvolvimento deverão ser documentadas conforme o ambiente escolhido para o projeto.
 
@@ -287,7 +287,7 @@ Exemplo:
 
 ---
 
-# 🎯 Objetivo da avaliação
+#  Objetivo da avaliação
 
 A avaliação tem como objetivo verificar a capacidade técnica de **planejar, desenvolver, testar e documentar** um sistema de informação simples, aplicando boas práticas de desenvolvimento de software.
 
