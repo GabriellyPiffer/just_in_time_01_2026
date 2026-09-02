@@ -1,4 +1,3 @@
-Claro — aqui está **o primeiro README que eu fiz**, completo e pronto para copiar:
 
 ```markdown
 # Avaliação – Sistema de Gestão de Produção e Estoque
