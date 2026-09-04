@@ -232,7 +232,7 @@ Informar:
 
 Informar:
 
-- Node.js (JavaScript) versão 18.x 
+- Java Script
 
 ### 9.3 Sistema operacional
 

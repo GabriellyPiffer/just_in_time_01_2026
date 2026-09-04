@@ -1,42 +1,36 @@
 const apiUrl = "http://localhost:3000";
+const $ = id => document.getElementById(id);
 
-const listaProdutos = document.getElementById("listaProdutos");
-const formProduto = document.getElementById("formCad"); 
-const cadastro = document.getElementById("cadastro");
-const buscaProduto = document.getElementById("buscaProduto");
-const usuarioLogado = document.getElementById("usuarioLogado");
+const listaProdutos = $("listaProdutos");
+const formProduto = $("formCad");
+const cadastro = $("cadastro");
+const buscaProduto = $("buscaProduto");
+const usuarioLogado = $("usuarioLogado");
+
+let produtoEditando = null;
 
 async function carregarProdutos() {
   if (!listaProdutos) return;
-  const res = await fetch(`${apiUrl}/produto/listar`);   
-  const produtos = await res.json();
 
-  listaProdutos.innerHTML = produtos.map(p => {
-    let alerta = "";
-    if (p.quantidade_estoque < p.estoque_minimo) {
-      alerta = `<span style="color:red; font-weight:bold;">⚠ Estoque baixo!</span>`;
-      document.getElementById("textoMensagem").textContent = `O produto ${p.nome} está abaixo do estoque mínimo!`;
-      modalMensagem.classList.remove("oculto");
-    }
+  const produtos = await (await fetch(`${apiUrl}/produto/listar`)).json();
 
-    const custoFormatado = p.custo !== undefined && p.custo !== null 
-      ? Number(p.custo).toFixed(2) 
-      : "0.00";
-
-    return `
-      <tr>
-        <td>${p.nome}</td>
-        <td>${p.descricao || ""}</td>
-        <td>R$ ${custoFormatado}</td>
-        <td>${p.quantidade_estoque} ${alerta}</td>
-        <td>${p.estoque_minimo}</td>
-        <td>
-          <button onclick="editarProduto(${p.id_produto})">Editar</button>
-          <button onclick="excluirProduto(${p.id_produto})">Excluir</button>
-        </td>
-      </tr>
-    `;
-  }).join("");
+  listaProdutos.innerHTML = produtos.map(p => `
+    <tr>
+      <td>${p.nome}</td>
+      <td>${p.descricao || ""}</td>
+      <td>R$ ${Number(p.custo || 0).toFixed(2)}</td>
+      <td>${p.quantidade_estoque} ${
+        p.quantidade_estoque < p.estoque_minimo
+          ? '<b style="color:red">⚠ Estoque baixo!</b>'
+          : ""
+      }</td>
+      <td>${p.estoque_minimo}</td>
+      <td>
+        <button onclick="editarProduto(${p.id_produto})">Editar</button>
+        <button onclick="excluirProduto(${p.id_produto})">Excluir</button>
+      </td>
+    </tr>
+  `).join("");
 }
 
 async function excluirProduto(id) {
@@ -44,58 +38,44 @@ async function excluirProduto(id) {
   carregarProdutos();
 }
 
-function editarProduto(id) {
-  fetch(`${apiUrl}/produto/buscar/${id}`)
-    .then(res => res.json())
-    .then(p => {
-      document.getElementById("nome").value = p.nome;
-      document.getElementById("descricao").value = p.descricao;
-      document.getElementById("custo").value = p.custo;
-      document.getElementById("quantidade").value = p.quantidade_estoque;
-      document.getElementById("estoqueMinimo").value = p.estoque_minimo;
+async function editarProduto(id) {
+  const p = await (await fetch(`${apiUrl}/produto/buscar/${id}`)).json();
 
-      cadastro.classList.remove("oculto");
+  $("nome").value = p.nome;
+  $("descricao").value = p.descricao;
+  $("custo").value = p.custo;
+  $("quantidade").value = p.quantidade_estoque;
+  $("estoqueMinimo").value = p.estoque_minimo;
 
-      formProduto.onsubmit = async (e) => {
-        e.preventDefault();
-        const produtoAtualizado = {
-          nome: document.getElementById("nome").value,
-          descricao: document.getElementById("descricao").value,
-          custo: parseFloat(document.getElementById("custo").value),
-          quantidade_estoque: parseInt(document.getElementById("quantidade").value),
-          estoque_minimo: parseInt(document.getElementById("estoqueMinimo").value)
-        };
-
-        await fetch(`${apiUrl}/produto/atualizar/${id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(produtoAtualizado)
-        });
-
-        cadastro.classList.add("oculto");
-        carregarProdutos();
-      };
-    });
+  produtoEditando = id;
+  cadastro.classList.remove("oculto");
 }
 
 if (formProduto) {
-  formProduto.addEventListener("submit", async (e) => {
+  formProduto.addEventListener("submit", async e => {
     e.preventDefault();
+
     const produto = {
-      nome: document.getElementById("nome").value,
-      descricao: document.getElementById("descricao").value,
-      custo: parseFloat(document.getElementById("custo").value),
-      quantidade_estoque: parseInt(document.getElementById("quantidade").value),
-      estoque_minimo: parseInt(document.getElementById("estoqueMinimo").value)
+      nome: $("nome").value,
+      descricao: $("descricao").value,
+      custo: parseFloat($("custo").value),
+      quantidade_estoque: parseInt($("quantidade").value),
+      estoque_minimo: parseInt($("estoqueMinimo").value)
     };
 
-    await fetch(`${apiUrl}/produto/cadastrar`, {
-      method: "POST",
+    const url = produtoEditando
+      ? `${apiUrl}/produto/atualizar/${produtoEditando}`
+      : `${apiUrl}/produto/cadastrar`;
+
+    await fetch(url, {
+      method: produtoEditando ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(produto)
     });
 
     cadastro.classList.add("oculto");
+    produtoEditando = null;
+    formProduto.reset();
     carregarProdutos();
   });
 }
@@ -103,81 +83,56 @@ if (formProduto) {
 if (buscaProduto) {
   buscaProduto.addEventListener("input", async () => {
     const termo = buscaProduto.value.toLowerCase();
-    const res = await fetch(`${apiUrl}/produto/listar`);
-    const produtos = await res.json();
+    const produtos = await (await fetch(`${apiUrl}/produto/listar`)).json();
 
-    const filtrados = produtos.filter(p => 
-      (p.nome || "").toLowerCase().includes(termo)
-    );
-
-    listaProdutos.innerHTML = filtrados.map(p => `
-      <tr>
-        <td>${p.nome}</td>
-        <td>${p.descricao || ""}</td>
-        <td>R$ ${(p.custo !== undefined && p.custo !== null ? Number(p.custo).toFixed(2) : "0.00")}</td>
-        <td>${p.quantidade_estoque}</td>
-        <td>${p.estoque_minimo}</td>
-        <td>
-          <button onclick="editarProduto(${p.id_produto})">Editar</button>
-          <button onclick="excluirProduto(${p.id_produto})">Excluir</button>
-        </td>
-      </tr>
-    `).join("");
+    listaProdutos.innerHTML = produtos
+      .filter(p => p.nome.toLowerCase().includes(termo))
+      .map(p => `
+        <tr>
+          <td>${p.nome}</td>
+          <td>${p.descricao || ""}</td>
+          <td>R$ ${Number(p.custo || 0).toFixed(2)}</td>
+          <td>${p.quantidade_estoque}</td>
+          <td>${p.estoque_minimo}</td>
+          <td>
+            <button onclick="editarProduto(${p.id_produto})">Editar</button>
+            <button onclick="excluirProduto(${p.id_produto})">Excluir</button>
+          </td>
+        </tr>
+      `).join("");
   });
 }
-
-
 
 function logout() {
   localStorage.removeItem("usuario");
   window.location.href = "login.html";
 }
 
-const formProducao = document.getElementById("formProducao");
-const listaProducao = document.getElementById("listaProducao");
-const produtoSelect = document.getElementById("produtoSelect");
-const buscaProducao = document.getElementById("buscaProducao");
+const formProducao = $("formProducao");
+const listaProducao = $("listaProducao");
+const produtoSelect = $("produtoSelect");
+const buscaProducao = $("buscaProducao");
 
 async function carregarProducao() {
   if (!listaProducao) return;
-  const res = await fetch(`${apiUrl}/producao/listar`);
-  const producoes = await res.json();
 
-  listaProducao.innerHTML = producoes.map(pr => `
+  const producoes = await (await fetch(`${apiUrl}/producao/listar`)).json();
+
+  listaProducao.innerHTML = producoes.map(p => `
     <tr>
-      <td>${pr.id_producao}</td>
-      <td>${pr.produto?.nome || pr.id_produto}</td>
-      <td>${pr.tipo}</td>
-      <td>${pr.quantidade}</td>
-      <td>${new Date(pr.data_producao).toLocaleDateString()}</td>
+      <td>${p.id_producao}</td>
+      <td>${p.produto?.nome || p.id_produto}</td>
+      <td>${p.tipo}</td>
+      <td>${p.quantidade}</td>
+      <td>${new Date(p.data_producao).toLocaleDateString()}</td>
     </tr>
   `).join("");
 }
 
-if (buscaProducao) {
-  buscaProducao.addEventListener("input", async () => {
-    const termo = buscaProducao.value.toLowerCase();
-    const res = await fetch(`${apiUrl}/producao/listar`);
-    const producoes = await res.json();
-
-    const filtradas = producoes.filter(pr => pr.produto?.nome.toLowerCase().includes(termo));
-
-    listaProducao.innerHTML = filtradas.map(pr => `
-      <tr>
-        <td>${pr.id_producao}</td>
-        <td>${pr.produto?.nome || pr.id_produto}</td>
-        <td>${pr.tipo}</td>
-        <td>${pr.quantidade}</td>
-        <td>${new Date(pr.data_producao).toLocaleDateString()}</td>
-      </tr>
-    `).join("");
-  });
-}
-
 async function carregarProdutosSelect() {
   if (!produtoSelect) return;
-  const res = await fetch(`${apiUrl}/produto/listar`);
-  const produtos = await res.json();
+
+  const produtos = await (await fetch(`${apiUrl}/produto/listar`)).json();
 
   produtoSelect.innerHTML = produtos
     .sort((a, b) => a.nome.localeCompare(b.nome))
@@ -185,13 +140,33 @@ async function carregarProdutosSelect() {
     .join("");
 }
 
+if (buscaProducao) {
+  buscaProducao.addEventListener("input", async () => {
+    const termo = buscaProducao.value.toLowerCase();
+    const producoes = await (await fetch(`${apiUrl}/producao/listar`)).json();
+
+    listaProducao.innerHTML = producoes
+      .filter(p => (p.produto?.nome || "").toLowerCase().includes(termo))
+      .map(p => `
+        <tr>
+          <td>${p.id_producao}</td>
+          <td>${p.produto?.nome || p.id_produto}</td>
+          <td>${p.tipo}</td>
+          <td>${p.quantidade}</td>
+          <td>${new Date(p.data_producao).toLocaleDateString()}</td>
+        </tr>
+      `).join("");
+  });
+}
+
 if (formProducao) {
-  formProducao.addEventListener("submit", async (e) => {
+  formProducao.addEventListener("submit", async e => {
     e.preventDefault();
+
     const producao = {
       id_produto: Number(produtoSelect.value),
-      tipo: document.getElementById("tipo").value,
-      quantidade: parseInt(document.getElementById("quantidadeProd").value),
+      tipo: $("tipo").value,
+      quantidade: parseInt($("quantidadeProd").value),
       id_usuario: 1
     };
 
@@ -202,16 +177,10 @@ if (formProducao) {
     });
 
     if (res.ok) {
-      const resultado = await res.json();
       alert("Produção registrada com sucesso!");
       carregarProducao();
       carregarProdutosSelect();
-
-      if (resultado.produto && resultado.produto.quantidade_estoque < resultado.produto.estoque_minimo) {
-        document.getElementById("textoMensagem").textContent =
-          `O produto ${resultado.produto.nome} está abaixo do estoque mínimo!`;
-        modalMensagem.classList.remove("oculto");
-      }
+      carregarProdutos();
     } else {
       const erro = await res.json();
       alert("Erro: " + erro.erro);
@@ -219,24 +188,24 @@ if (formProducao) {
   });
 }
 
-const formLogin = document.getElementById("formLogin");
-const mensagemErro = document.getElementById("mensagemErro");
+const formLogin = $("formLogin");
+const mensagemErro = $("mensagemErro");
 
 if (formLogin) {
-  formLogin.addEventListener("submit", async (e) => {
+  formLogin.addEventListener("submit", async e => {
     e.preventDefault();
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("senha").value;
 
     const res = await fetch(`${apiUrl}/usuario/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, senha })
+      body: JSON.stringify({
+        email: $("email").value,
+        senha: $("senha").value
+      })
     });
 
     if (res.ok) {
-      const usuario = await res.json();
-      localStorage.setItem("usuario", JSON.stringify(usuario));
+      localStorage.setItem("usuario", JSON.stringify(await res.json()));
       window.location.href = "index.html";
     } else {
       const erro = await res.json();
@@ -246,12 +215,12 @@ if (formLogin) {
   });
 }
 
-const listaHistorico = document.getElementById("listaHistorico");
+const listaHistorico = $("listaHistorico");
 
 async function carregarHistorico() {
   if (!listaHistorico) return;
-  const res = await fetch(`${apiUrl}/producao/listar`);
-  const producoes = await res.json();
+
+  const producoes = await (await fetch(`${apiUrl}/producao/listar`)).json();
 
   listaHistorico.innerHTML = producoes.map(p => `
     <tr>
@@ -266,9 +235,9 @@ async function carregarHistorico() {
 
 window.onload = () => {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  if (usuario && usuarioLogado) {
+
+  if (usuario && usuarioLogado)
     usuarioLogado.textContent = "Logado como: " + usuario.nome;
-  }
 
   carregarProdutos();
   carregarProdutosSelect();
