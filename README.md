@@ -109,7 +109,6 @@ O sistema deverá possuir uma interface de login para autenticação dos usuári
 - Redirecionamento para a tela principal após o login realizado com sucesso;
 - Retorno à tela de login quando a autenticação falhar.
 
-Não é necessário implementar o cadastro de novos usuários.
 
 ---
 
