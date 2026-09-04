@@ -277,13 +277,13 @@ As tecnologias utilizadas no desenvolvimento deverão ser documentadas conforme 
 
 Exemplo:
 
-- **Frontend:** HTML, CSS e JavaScript;
-- **Backend:** Node.js e Express;
-- **Banco de dados:** MySQL;
-- **ORM:** Prisma;
-- **Testes de API:** Insomnia;
-- **Navegador:** Google Chrome;
-- **Editor de código:** Visual Studio Code.
+- **Frontend:** HTML, CSS e JavaScript  
+- **Backend:** Node.js e Express  
+- **Banco de dados:** MariaDB  
+- **ORM:** Prisma  
+- **Testes de API:** Insomnia  
+- **Navegador:** Google Chrome  
+- **Editor de código:** Visual Studio Code
 
 ---
 
