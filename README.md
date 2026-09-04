@@ -274,7 +274,6 @@ O sistema permitirá centralizar as informações de produtos, pedidos, produç�
 
 As tecnologias utilizadas no desenvolvimento deverão ser documentadas conforme o ambiente escolhido para o projeto.
 
-Exemplo:
 
 - **Frontend:** HTML, CSS e JavaScript  
 - **Backend:** Node.js e Express  
