@@ -181,66 +181,10 @@ Também deverá ser registrado qual usuário realizou a movimentação.
 
 ---
 
-# 8. Testes de Software
+## 📄 Documentação
 
-Deverão ser elaborados casos de teste para verificar o funcionamento dos requisitos do sistema.
+Toda a documentação detalhada do sistema (requisitos, DER, casos de teste, infraestrutura) está disponível na pasta [docs](./docs).
 
-Cada caso de teste deverá conter:
-
-- **ID do Caso de Teste**
-- **Requisito Funcional**
-- **Descrição**
-- **Pré-condições**
-- **Passos para execução**
-- **Resultado Esperado**
-
-### Exemplo
-
-**ID do Caso de Teste:** CT01  
-**Requisito Funcional:** RF01.1  
-**Descrição:** Verificar se a interface de autenticação solicita e-mail e senha.  
-**Pré-condições:** O sistema deve estar acessível.
-
-**Passos:**
-
-1. Acessar a tela de login.
-2. Verificar os campos disponíveis.
-3. Conferir se existem os campos de e-mail e senha.
-
-**Resultado Esperado:**  
-Os campos de e-mail e senha devem estar visíveis e disponíveis para preenchimento.
-
-### Ferramentas de teste
-
-**Testes manuais:**
-
-- Insomnia;
-- Google Chrome;
----
-
-# 9. Requisitos de Infraestrutura
-
-A documentação deverá apresentar as tecnologias utilizadas durante o desenvolvimento do sistema.
-
-### 9.1 Sistema Gerenciador de Banco de Dados
-
-Informar:
-
-- MariaDB 10.6 (utilizado em conjunto com Prisma ORM para gerenciamento do banco de dados) 
-
-### 9.2 Linguagem de programação
-
-Informar:
-
-- Java Script
-
-### 9.3 Sistema operacional
-
-Informar:
-
-- Windows 10 Pro – versão 22H2 
-
----
 
 #  Contextualização
 
@@ -254,22 +198,78 @@ O sistema permitirá centralizar as informações de produtos, pedidos, produç�
 
 ---
 
-#  Entregas
+# ✅ Lista de Verificação por Atividade
 
-Ao final da atividade, deverão ser entregues:
+## ATIVIDADE 1 – Documentação de Requisitos
+| Evidência | Capacidade | Peso | Sim | Não |
+|-----------|------------|------|-----|-----|
+| Desenvolveu conforme análise de requisitos | C6 | 2 | ✅ |  |
+| Modelo de requisitos funcionais mínimos | C6 | 2 | ✅ |  |
 
-- [ ] Lista de requisitos funcionais;
-- [ ] Diagrama Entidade-Relacionamento (DER);
-- [ ] Script de criação e população do banco de dados;
-- [ ] Interface de autenticação;
-- [ ] Interface principal;
-- [ ] Interface de cadastro de produtos;
-- [ ] Interface de gestão de produção;
-- [ ] Documentação dos casos de teste;
-- [ ] Lista de ferramentas e ambientes de teste;
-- [ ] Lista de requisitos de infraestrutura.
+## ATIVIDADE 2 – DER
+| Evidência | Capacidade | Peso | Sim | Não |
+|-----------|------------|------|-----|-----|
+| Chaves estrangeiras conforme modelagem | C4 | 2 | ✅ |  |
+| Relações 1:N entre tabelas | C4 | 2 | ✅ |  |
+| Tipos definidos corretamente (DATE, INT, etc.) | C4 | 2 | ✅ |  |
+| Entidades Usuário, Produto e Produção | C4 | 1 | ✅ |  |
 
----
+## ATIVIDADE 3 – Script Banco de Dados
+| Evidência | Capacidade | Peso | Sim | Não |
+|-----------|------------|------|-----|-----|
+| Criou banco com nome especificado | C4 | 1 | ✅ |  |
+| Criou todas as tabelas com chaves estrangeiras | C4 | 2 | ✅ |  |
+| Inseriu registros de teste | C4 | 2 | ✅ |  |
+
+## ATIVIDADE 4 – Interface Autenticação de Usuário
+| Evidência | Capacidade | Peso | Sim | Não |
+|-----------|------------|------|-----|-----|
+| Criou sessão/localStorage para usuário autenticado | C7 | 2 | ✅ |  |
+| Redireciona para interface principal após login | C7 | 3 | ✅ |  |
+| Campos de login, senha e botão entrar | C7 | 2 | ✅ |  |
+| Tratamento de falha de autenticação | C7 | 3 | ✅ |  |
+
+## ATIVIDADE 5 – Interface Principal
+| Evidência | Capacidade | Peso | Sim | Não |
+|-----------|------------|------|-----|-----|
+| Acesso ao cadastro de produto | C7 | 1 | ✅ |  |
+| Acesso à gestão de produção | C7 | 1 | ✅ |  |
+| Logout redireciona para login | C7 | 1 | ✅ |  |
+| Exibe nome do usuário autenticado | C7 | 2 | ✅ |  |
+
+## ATIVIDADE 6 – Interface Cadastro de Produto
+| Evidência | Capacidade | Peso | Sim | Não |
+|-----------|------------|------|-----|-----|
+| Lista produtos ao carregar | C7 | 2 | ✅ |  |
+| Inserção de novo produto | C7 | 2 | ✅ |  |
+| Edição de produto existente | C7 | 3 | ✅ |  |
+| Exclusão de produto existente | C7 | 2 | ✅ |  |
+| Validação de dados | C7 | 3 | ✅ |  |
+| Retorno à interface principal | C7 | 1 | ✅ |  |
+| Campo de busca funcional | C7 | 3 | ✅ |  |
+
+## ATIVIDADE 7 – Interface Gestão de Produção (Just in Time)
+| Evidência | Capacidade | Peso | Sim | Não |
+|-----------|------------|------|-----|-----|
+| Seleção de produto e tipo (entrada/saída) | C7 | 2 | ✅ |  |
+| Inserção de dados de transferência | C7 | 3 | ✅ |  |
+| Lista em ordem alfabética | C7 | 3 |  | ❌ |
+| Alerta de estoque mínimo | C7 | 3 | ✅ |  |
+
+## ATIVIDADE 8 – Casos de Testes
+| Evidência | Capacidade | Peso | Sim | Não |
+|-----------|------------|------|-----|-----|
+| Ferramentas e ambiente de testes descritos | C8 | 2 | ✅ |  |
+| Casos de teste por requisito funcional | C8 | 2 | ✅ |  |
+| Testes executados conforme casos | C8 | 2 | ✅ |  |
+
+## ATIVIDADE 9 – Documentação de Infraestrutura
+| Evidência | Capacidade | Peso | Sim | Não |
+|-----------|------------|------|-----|-----|
+| Linguagem e versão identificadas | C1 | 1 | ✅ |  |
+| SGBD e versão identificados | C1 | 1 | ✅ |  |
+| Sistema operacional e versão identificados | C1 | 1 | ✅ |  |
+
 
 #  Tecnologias
 
